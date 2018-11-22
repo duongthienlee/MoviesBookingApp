@@ -1,0 +1,17 @@
+
+export const FETCH_MOVIES_BEGIN = "FETCH_MOVIES_BEGIN ";
+export const FETCH_MOVIES_SUCCESS = "FETCH_MOVIES_SUCCESS ";
+export const FETCH_MOVIES_FAILURE = "FETCH_MOVIES_FAILURE ";
+export const POP_UP_IS_OPEN = "POP_UP_IS_OPEN ";
+export const POP_UP_IS_CLOSE = "POP_UP_IS_CLOSE ";
+export const CHOOSE_TIME = "CHOOSE_TIME ";
+export const CHOOSE_DAY = "CHOOSE_DAY ";
+
+
+
+
+
+
+
+
+
