@@ -1,25 +1,19 @@
 // Login.js
 import React from 'react'
-import { StyleSheet, Image, ImageBackground, KeyboardAvoidingView, Text, TextInput, View, Button } from 'react-native'
-import firebase from 'react-native-firebase'
-import bg from "../assets/bg.jpeg"
+import { StyleSheet, Image, KeyboardAvoidingView, Text, TextInput, View } from 'react-native'
 import logo from "../assets/logo.png"
 import CustomButton from "../components/common/button"
-
-export default class Login extends React.Component {
+import { loginRequest } from "../actions"
+import { connect } from 'react-redux';
+export class Login extends React.Component {
     state = { email: '', password: '', errorMessage: null, chosen: false }
     handleLogin = () => {
         const { email, password } = this.state
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(() => this.props.navigation.navigate('Main'))
-            .catch(error => this.setState({ errorMessage: error.message }))
+        this.props.dispatch(loginRequest(email, password));
         this.setState({ chosen: true })
     }
     render() {
         return (
-
             <View style={styles.viewContainer}>
                 <KeyboardAvoidingView style={styles.viewContainer} behavior="padding">
                     <View style={styles.logoView}>
@@ -27,11 +21,10 @@ export default class Login extends React.Component {
                             style={{ alignSelf: 'center' }}
                             source={logo} />
                     </View>
-
                     <View style={styles.inputView}>
-                        {this.state.errorMessage &&
+                        {this.props.loginError &&
                             <Text style={{ color: 'red' }}>
-                                {this.state.errorMessage}
+                                {this.props.loginError.toString()}
                             </Text>}
                         <TextInput
                             style={styles.textInput}
@@ -84,6 +77,17 @@ export default class Login extends React.Component {
         )
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch
+    };
+}
+const mapStateToProps = (state) => ({
+    loginError: state.authHandlingErrorReducer.loginError
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
 const styles = StyleSheet.create({
     viewContainer: {
         backgroundColor: 'rgba(48,61,82,1)',

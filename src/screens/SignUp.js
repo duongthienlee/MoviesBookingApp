@@ -1,18 +1,16 @@
 // SignUp.js
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Image, KeyboardAvoidingView } from 'react-native'
-import firebase from 'react-native-firebase'
 import CustomButton from "../components/common/button"
 import logo from "../assets/logo.png"
-export default class SignUp extends React.Component {
+import { signupRequest } from "../actions"
+import { connect } from 'react-redux';
+export class SignUp extends React.Component {
     state = { username: '', email: '', password: '', errorMessage: null, chosen: false }
     handleSignUp = () => {
         this.setState({ chosen: true })
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => this.props.navigation.navigate('Main'))
-            .catch(error => this.setState({ errorMessage: error.message }))
+        this.props.dispatch(signupRequest(this.state.email, this.state.password, this.state.username));
+        // this.props.navigation.navigate('Main')
     }
     render() {
         return (
@@ -25,9 +23,9 @@ export default class SignUp extends React.Component {
                     </View>
 
                     <View style={styles.inputView}>
-                        {this.state.errorMessage &&
+                        {this.props.signUpError &&
                             <Text style={{ color: 'red' }}>
-                                {this.state.errorMessage}
+                                {this.props.signUpError.toString()}
                             </Text>}
                         <TextInput
                             style={styles.textInput}
@@ -87,6 +85,17 @@ export default class SignUp extends React.Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch
+    };
+}
+const mapStateToProps = (state) => ({
+    signUpError: state.authHandlingErrorReducer.signUpError
+})
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+
 const styles = StyleSheet.create({
     viewContainer: {
         backgroundColor: 'rgba(48,61,82,1)',

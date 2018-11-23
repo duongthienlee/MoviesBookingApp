@@ -5,53 +5,30 @@ import SignUp from '../screens/SignUp'
 import Login from '../screens/Login'
 import Movies from '../screens/Movies'
 import Account from "../screens/Account"
-import {
-    createSwitchNavigator,
-    createDrawerNavigator,
-    createStackNavigator,
-    DrawerActions
-} from 'react-navigation';
-import { Button } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { createSwitchNavigator, createDrawerNavigator, createStackNavigator } from 'react-navigation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Confirmation from "../screens/Confirmation"
-
-const InnerDrawer = createDrawerNavigator(
+import DrawerContent from "./DrawerContent"
+const Drawer = createDrawerNavigator(
     {
-        Movies: Movies,
-        Account: Account
-    },
-    {
-        getCustomActionCreators: (route, stateKey) => {
-            console.log('inner: ' + stateKey);
-            return {
-                toggleInnerDrawer: () => DrawerActions.toggleDrawer({ key: stateKey }),
-            };
+        Movies: {
+            screen: Movies
         },
-    }
-);
-const StackNav = createStackNavigator({
-    drawerLeft: {
-        screen: InnerDrawer,
-        navigationOptions: ({ navigation }) => ({
-            headerLeft: (
-                <Icon
-                    name='map-o'
-                    type='font-awesome'
-                    size={25}
-                    color={'#FF9F1C'}
-                    underlayColor={'white'}
-
-                    onPress={navigation.toggleInnerDrawer}
-                />
-
-            ),
-        }),
+        Account: {
+            screen: Account
+        }
     },
-});
+    {
+        contentComponent: props => <DrawerContent {...props} />,
+        drawerWidth: 320,
+
+    }
+
+);
 
 const MyApp = createStackNavigator({
     Root: {
-        screen: StackNav,
+        screen: Drawer,
     },
     Confirmation: Confirmation,
 
