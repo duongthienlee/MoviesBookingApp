@@ -1,16 +1,18 @@
 // Login.js
 import React from 'react'
-import { StyleSheet, Image, KeyboardAvoidingView, Text, TextInput, View } from 'react-native'
-import logo from "../assets/logo.png"
-import CustomButton from "../components/common/button"
-import { loginRequest } from "../actions"
+import { Image, KeyboardAvoidingView, Text, TextInput, View } from 'react-native'
+import logo from "../../../assets/logo.png"
+import CustomButton from "../../../components/common/button"
+import { loginRequest } from "../../../actions"
 import { connect } from 'react-redux';
+import styles from "../LoginSignUp.style"
 export class Login extends React.Component {
     state = { email: '', password: '', errorMessage: null, chosen: false }
     handleLogin = () => {
         const { email, password } = this.state
         this.props.dispatch(loginRequest(email, password));
         this.setState({ chosen: true })
+
     }
     render() {
         return (
@@ -22,6 +24,7 @@ export class Login extends React.Component {
                             source={logo} />
                     </View>
                     <View style={styles.inputView}>
+
                         {this.props.loginError &&
                             <Text style={{ color: 'red' }}>
                                 {this.props.loginError.toString()}
@@ -87,40 +90,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-
-const styles = StyleSheet.create({
-    viewContainer: {
-        backgroundColor: 'rgba(48,61,82,1)',
-        flex: 1,
-        paddingLeft: 10,
-        paddingRight: 10,
-    },
-    // Logo view 
-    logoView: {
-        flex: 0.35,
-        justifyContent: "flex-end",
-        alignItems: 'center',
-    },
-    // Input view 
-    inputView: {
-        flex: 0.45,
-        justifyContent: 'flex-end',
-
-
-    },
-    textInput: {
-        height: 50,
-        backgroundColor: 'rgba(0,0,0,0.2)',
-        borderRadius: 5,
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginTop: 10,
-        color: "white"
-    },
-    // Button view 
-    buttonView: {
-        flex: 0.20,
-        justifyContent: "flex-end",
-        paddingBottom: 35,
-    }
-})

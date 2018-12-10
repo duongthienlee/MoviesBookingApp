@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { ImageBackground } from 'react-native'
 import bg from "../assets/bg.jpg"
 import { NavigationActions, withNavigation } from 'react-navigation';
-import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import firebase from 'react-native-firebase'
-import styles from './Sidebar.style';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { connect } from 'react-redux';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import styles from './Sidebar.style'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { connect } from 'react-redux'
 class DrawerItems extends Component {
     navigateToScreen = (route) => () => {
         const navigate = NavigationActions.navigate({
@@ -22,8 +21,8 @@ class DrawerItems extends Component {
                     style={{ resizeMode: 'stretch' }}>
                     <View style={styles.headerBannerContainer}>
                         <Image style={styles.image} source={{ uri: 'https://www.w3schools.com/howto/img_avatar.png' }} />
-                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>{this.props.updatedUser ? this.props.updatedUser.account.username : "name(need persistent data for redux)"}</Text>
-                        <Text style={{ color: 'white', fontSize: 14, paddingTop: 5 }}>{this.props.updatedUser ? this.props.updatedUser.account.email : "email(need persistent data for redux)"}</Text>
+                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>{this.props.updatedUser && this.props.updatedUser.account.username}</Text>
+                        <Text style={{ color: 'white', fontSize: 14, paddingTop: 5 }}>{this.props.updatedUser && this.props.updatedUser.account.email}</Text>
                     </View>
                 </ImageBackground>
                 <View>

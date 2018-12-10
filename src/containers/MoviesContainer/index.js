@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { fetchMovies } from "../../actions";
 import MoviePopupContainer from "../MoviePopupContainer"
 import MovieList from "../MovieList"
-import { Dimensions } from 'react-native'
 
 let page = 1;
 class MoviesContainer extends React.Component {

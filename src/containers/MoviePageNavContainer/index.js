@@ -12,8 +12,6 @@ class MoviePageNav extends React.Component {
 
     nextPageHandle = () => {
         page++
-        console.log("page " + page)
-
         this.setState({
             onChoosePrevBtn: false,
             onChooseNextBtn: true
@@ -25,13 +23,11 @@ class MoviePageNav extends React.Component {
     }
     prevPageHandle = () => {
         page > 1 && page--
-        console.log("page " + page)
         this.setState({
             onChoosePrevBtn: true,
             onChooseNextBtn: false
         });
         this.props.dispatch(fetchMovies(page));
-        console.log(this.props.onChoosePrevBtn)
     }
     render() {
         return (
@@ -44,7 +40,6 @@ class MoviePageNav extends React.Component {
                             width: "100%",
                             height: "100%",
                             justifyContent: "center"
-
                         }}
                         value="Prev"
                         isChosen={this.state.onChoosePrevBtn}

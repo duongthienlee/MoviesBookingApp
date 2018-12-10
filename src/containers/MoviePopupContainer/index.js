@@ -2,8 +2,12 @@
 import MoviePopup from "../../components/common/MoviePopup"
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { moviePopupCloseFn, moviePopupChooseDay, moviePopupChooseTime } from "../../actions";
+import { moviePopupCloseFn, moviePopupChooseDay, moviePopupChooseTime, updateLocallyBookedCodesData } from "../../actions";
 import { withNavigation } from 'react-navigation';
+import firebase from 'react-native-firebase'
+import { days, times } from "../../variables/data"
+import uuidv4 from 'uuid/v4';
+import _ from "lodash";
 class index extends Component {
     closeMovie = () => {
         this.props.dispatch(moviePopupCloseFn(false));
@@ -19,14 +23,27 @@ class index extends Component {
         this.props.dispatch(moviePopupChooseTime(time));
     }
     bookTicket = () => {
+        const uniqueCode = uuidv4()
+        const bookedCode = {
+            movieChosen: this.props.moviePopup.title,
+            chosenDay: days[this.props.chosenDay],
+            chosenTime: times[this.props.chosenTime],
+            code: uniqueCode
+        }
+        const { currentUser } = firebase.auth()
         // Make sure they selected time 
         if (this.props.chosenTime === null) {
             alert('Please select show time');
         } else {
             // Close popup
             this.closeMovie();
+            // save the uniqueCode to database
+            let props = this.props
+            firebase.database().ref('users/' + currentUser.uid + "/account/bookedCodes/" + uniqueCode).update(bookedCode)
+            // convert it to array then add it to current bookedCodesData
+            props.dispatch(updateLocallyBookedCodesData((bookedCode)))
             // Navigate away to Confirmation route
-            this.props.navigation.navigate('Confirmation', { code: Math.random().toString(36).substring(6).toUpperCase() })
+            this.props.navigation.navigate('Confirmation', { movie: bookedCode })
         }
     }
     render() {

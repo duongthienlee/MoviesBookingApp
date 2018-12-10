@@ -1,12 +1,11 @@
 import React from 'react'
 // import the different screens
-import AuthLoading from '../screens/AuthLoading'
-import SignUp from '../screens/SignUp'
-import Login from '../screens/Login'
+import AuthLoading from '../screens/WalkthroughScreen/AuthLoading'
+import SignUp from '../screens/WalkthroughScreen/SignUp'
+import Login from '../screens/WalkthroughScreen/Login'
 import Movies from '../screens/Movies'
 import Account from "../screens/Account"
 import { createSwitchNavigator, createDrawerNavigator, createStackNavigator } from 'react-navigation';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Confirmation from "../screens/Confirmation"
 import DrawerContent from "./DrawerContent"
 const Drawer = createDrawerNavigator(

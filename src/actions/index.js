@@ -1,7 +1,8 @@
 import {
   USER_SET, LOGIN_ERROR, SIGN_UP_ERROR,
   FETCH_MOVIES_BEGIN, FETCH_MOVIES_SUCCESS, FETCH_MOVIES_FAILURE,
-  POP_UP_IS_OPEN, POP_UP_IS_CLOSE, CHOOSE_DAY, CHOOSE_TIME
+  POP_UP_IS_OPEN, POP_UP_IS_CLOSE, CHOOSE_DAY, CHOOSE_TIME,
+  UPDATE_BOOKED_CODES_DATA, UPDATE_LOCALLY_BOOKED_CODES_DATA
 } from "./types";
 import firebase from 'react-native-firebase'
 import { NavigationActions } from 'react-navigation'
@@ -23,6 +24,17 @@ export const moviePopupChooseTime = (payload) => ({
   type: CHOOSE_TIME,
   payload
 });
+
+export const updateBookedCodesData = (payload) => ({
+  type: UPDATE_BOOKED_CODES_DATA,
+  payload
+});
+export const updateLocallyBookedCodesData = (payload) => ({
+  type: UPDATE_LOCALLY_BOOKED_CODES_DATA,
+  payload
+});
+
+
 
 //-------------------------------------------------- fetch movie stuff-------------------------------------------------
 export const fetchMoviesBegin = () => ({
@@ -47,7 +59,6 @@ export function fetchMovies(page) {
       .then(response => response.json())
       .then(responseJson => {
         dispatch(fetchMoviesSuccess(responseJson.results));
-        console.log("test, movie title  " + responseJson.results.total_pages)
         return responseJson.results;
       })
       .catch(error => dispatch(fetchMoviesError(error)));
@@ -80,7 +91,6 @@ export const signupRequest = (email, password, username) => dispatch => {
     .then((authData) => {
       // package up our user.account object and .set(account) without any key value pairs 
       let account = {}
-      console.log("check " + authData.user.uid)
       account.email = email.toLowerCase()
       account.uid = authData.user.uid
       account.username = username

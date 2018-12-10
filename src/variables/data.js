@@ -1,7 +1,9 @@
 import moment from 'moment';
 
 // Hardcode days for the sake of simplicity
-export const days = ['Today', 'Tomorrow',
+export const days = [
+    moment().add(0, 'days').format(' MMM D'),
+    moment().add(1, 'days').format(' MMM D'),
     moment().add(2, 'days').format(' MMM D'),
     moment().add(3, 'days').format(' MMM D'),
     moment().add(4, 'days').format(' MMM D'),

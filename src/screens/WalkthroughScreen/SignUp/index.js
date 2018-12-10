@@ -1,16 +1,16 @@
 // SignUp.js
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Image, KeyboardAvoidingView } from 'react-native'
-import CustomButton from "../components/common/button"
-import logo from "../assets/logo.png"
-import { signupRequest } from "../actions"
+import { Text, TextInput, View, Image, KeyboardAvoidingView } from 'react-native'
+import CustomButton from "../../../components/common/button"
+import logo from "../../../assets/logo.png"
+import { signupRequest } from "../../../actions"
 import { connect } from 'react-redux';
+import styles from "../LoginSignUp.style"
 export class SignUp extends React.Component {
     state = { username: '', email: '', password: '', errorMessage: null, chosen: false }
     handleSignUp = () => {
         this.setState({ chosen: true })
         this.props.dispatch(signupRequest(this.state.email, this.state.password, this.state.username));
-        // this.props.navigation.navigate('Main')
     }
     render() {
         return (
@@ -96,39 +96,3 @@ const mapStateToProps = (state) => ({
 })
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 
-const styles = StyleSheet.create({
-    viewContainer: {
-        backgroundColor: 'rgba(48,61,82,1)',
-        flex: 1,
-        paddingLeft: 10,
-        paddingRight: 10,
-    },
-    // Logo view 
-    logoView: {
-        flex: 0.35,
-        justifyContent: "flex-end",
-        alignItems: 'center',
-    },
-    // Input view 
-    inputView: {
-        flex: 0.45,
-        justifyContent: 'flex-end',
-
-
-    },
-    textInput: {
-        height: 50,
-        backgroundColor: 'rgba(0,0,0,0.2)',
-        borderRadius: 5,
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginTop: 10,
-        color: "white"
-    },
-    // Button view 
-    buttonView: {
-        flex: 0.20,
-        justifyContent: "flex-end",
-        paddingBottom: 35
-    }
-})
