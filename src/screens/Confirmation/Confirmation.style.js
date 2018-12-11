@@ -5,7 +5,7 @@ export default {
     justifyContent: "center"
   },
   img: {
-    marginBottom: 30
+    marginBottom: 50
   },
   // movie info styles
   header: {

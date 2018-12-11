@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {
-    View, Text, Image, FlatList, ScrollView, TouchableHighlight, ActivityIndicator
+    View, Text, Image, FlatList, ScrollView, TouchableHighlight, ActivityIndicator, StatusBar
 } from 'react-native'
 import firebase from 'react-native-firebase'
 import CustomButton from "../../components/common/button"
@@ -37,7 +37,10 @@ class Account extends Component {
                 screenTitle={"Account"}
             >
                 <View style={styles.container}>
-
+                    <StatusBar
+                        backgroundColor="rgba(37, 48, 66,1)"
+                        barStyle="light-content"
+                    />
                     <View style={{ marginBottom: 10, ...styles.flexAlignInRowStyle }}>
                         <View style={styles.flexVerticalHorizontal}>
                             <Image style={styles.img} source={{ uri: 'https://www.w3schools.com/howto/img_avatar.png' }} />

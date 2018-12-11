@@ -1,16 +1,18 @@
-// SignUp.js
+// Login.js
 import React from 'react'
-import { Text, TextInput, View, Image, KeyboardAvoidingView } from 'react-native'
-import CustomButton from "../../../components/common/button"
+import { Image, KeyboardAvoidingView, Text, TextInput, View } from 'react-native'
 import logo from "../../../assets/logo.png"
-import { signupRequest } from "../../../actions"
+import CustomButton from "../../../components/common/button"
+import { loginRequest } from "../../../actions"
 import { connect } from 'react-redux';
 import styles from "../LoginSignUp.style"
-export class SignUp extends React.Component {
-    state = { username: '', email: '', password: '', errorMessage: null, chosen: false }
-    handleSignUp = () => {
+export class Login extends React.Component {
+    state = { email: '', password: '', errorMessage: null, chosen: false }
+    handleLogin = () => {
+        const { email, password } = this.state
+        this.props.dispatch(loginRequest(email, password));
         this.setState({ chosen: true })
-        this.props.dispatch(signupRequest(this.state.email, this.state.password, this.state.username));
+
     }
     render() {
         return (
@@ -21,26 +23,18 @@ export class SignUp extends React.Component {
                             style={{ alignSelf: 'center' }}
                             source={logo} />
                     </View>
-
                     <View style={styles.inputView}>
-                        {this.props.signUpError &&
+
+                        {this.props.loginError &&
                             <Text style={{ color: 'red' }}>
-                                {this.props.signUpError.toString()}
+                                {this.props.loginError.toString()}
                             </Text>}
                         <TextInput
                             style={styles.textInput}
                             placeholderTextColor={"white"}
                             autoCapitalize="none"
-                            placeholder="Username"
-                            onChangeText={username => this.setState({ username })}
-                            value={this.state.username}
-                        />
-                        <TextInput
-                            style={styles.textInput}
-                            placeholderTextColor={"white"}
-                            autoCapitalize="none"
                             placeholder="Email"
-                            onChangeText={email => this.setState({ email })}
+                            onChangeText={email => this.setState({ email, chosen: false })}
                             value={this.state.email}
                         />
                         <TextInput
@@ -49,10 +43,9 @@ export class SignUp extends React.Component {
                             placeholderTextColor={"white"}
                             autoCapitalize="none"
                             placeholder="Password"
-                            onChangeText={password => this.setState({ password })}
+                            onChangeText={password => this.setState({ password, chosen: false })}
                             value={this.state.password}
                         />
-
                     </View>
 
                     <View style={styles.buttonView}>
@@ -69,30 +62,30 @@ export class SignUp extends React.Component {
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             }}
-                            value="Sign Up"
+                            value="Login"
                             isChosen={this.state.chosen}
-                            onChoose={this.handleSignUp}
+                            onChoose={this.handleLogin}
                         />
 
-                        <Text style={{ textAlign: "center", color: "white" }} onPress={() => this.props.navigation.navigate('Login')}>
-                            Already have an account? <Text style={{ textTransform: "capitalize" }}>Login!</Text>
+                        <Text style={{ textAlign: "center", color: "white" }} onPress={() => this.props.navigation.navigate('SignUp')}>
+                            Don't have an account? <Text style={{ textTransform: "capitalize" }}>register now!</Text>
                         </Text>
 
                     </View>
                 </KeyboardAvoidingView>
             </View>
 
+
         )
     }
 }
-
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch
     };
 }
 const mapStateToProps = (state) => ({
-    signUpError: state.authHandlingErrorReducer.signUpError
+    loginError: state.authHandlingErrorReducer.loginError
 })
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -8,11 +8,14 @@ buildscript {
     supportLibVersion = "27.1.1"
   }
   repositories {
-    jcenter()
+    jcenter {url 'https://dl.bintray.com/android/android-tools'}
+    jcenter {url 'https://firebase.bintray.com/gradle'}
+    mavenCentral ()
     google()
     maven {
       url 'https://maven.fabric.io/public'
     }
+  
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:3.2.0'
@@ -36,7 +39,6 @@ allprojects {
   }
 }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = '4.6'
-  distributionUrl = distributionUrl.replace("bin", "all")
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }

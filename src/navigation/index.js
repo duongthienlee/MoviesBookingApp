@@ -1,8 +1,8 @@
 import React from 'react'
 // import the different screens
 import AuthLoading from '../screens/WalkthroughScreen/AuthLoading'
-import SignUp from '../screens/WalkthroughScreen/SignUp'
-import Login from '../screens/WalkthroughScreen/Login'
+import SignUp from '../screens/WalkthroughScreen/SignUp/'
+import Login from '../screens/WalkthroughScreen/Login/'
 import Movies from '../screens/Movies'
 import Account from "../screens/Account"
 import { createSwitchNavigator, createDrawerNavigator, createStackNavigator } from 'react-navigation';
@@ -31,8 +31,9 @@ const MyApp = createStackNavigator({
     },
     Confirmation: Confirmation,
 
-});
-
+}, {
+        headerMode: 'none'
+    });
 
 // switch Navigator for login&Signup screens 
 const AppNavigation = createSwitchNavigator(

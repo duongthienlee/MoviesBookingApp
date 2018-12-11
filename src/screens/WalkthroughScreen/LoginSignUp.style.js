@@ -7,16 +7,16 @@ export default {
   },
   // Logo view 
   logoView: {
-    flex: 0.35,
+    paddingTop: 10,
+    flex: 0.3,
     justifyContent: "flex-end",
     alignItems: 'center',
   },
   // Input view 
   inputView: {
-    flex: 0.45,
-    justifyContent: 'flex-end',
-
-
+    flex: 0.55,
+    justifyContent: "flex-end",
+    paddingBottom: 30
   },
   textInput: {
     height: 50,
@@ -24,13 +24,13 @@ export default {
     borderRadius: 5,
     paddingLeft: 10,
     paddingRight: 10,
-    marginTop: 10,
+    marginBottom: 10,
     color: "white"
   },
   // Button view 
   buttonView: {
-    flex: 0.20,
+    flex: 0.15,
     justifyContent: "flex-end",
-    paddingBottom: 35,
+    paddingBottom: 30
   }
 }

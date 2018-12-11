@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import {
     Text,
     TouchableOpacity,
-    View, Image
+    View, Image,
+
 } from 'react-native';
 import logo from "../../assets/blackLogo.png"
 import styles from "./Confirmation.style"
@@ -19,6 +20,7 @@ export default class Confirmation extends Component {
         const { chosenDay, chosenTime, code, movieChosen } = this.props.navigation.state.params.movie;
         return (
             <View style={styles.container}>
+
                 <Image source={logo} style={styles.img} />
                 <Text style={styles.header}>Your confirmation code</Text>
                 <View style={styles.code}>

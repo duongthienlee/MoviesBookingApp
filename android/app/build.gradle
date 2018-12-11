@@ -155,7 +155,6 @@ android {
 
 dependencies {
     compile project(':react-native-vector-icons')
-    compile project(':react-native-linear-gradient')
     compile project(':react-native-firebase')
   implementation(project(':react-native-firebase')) {
     transitive = false
